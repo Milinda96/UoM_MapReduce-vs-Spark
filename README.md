@@ -1,7 +1,7 @@
 # UoM_MapReduce-vs-Spark
 In23-S1-CS5229 - Big Data Analytics Technologies
 
-# Run the queries using python script
+# Spark => Run the queries using python script
 
 1. Year_wise_carrier_delay.py
 2. Year_wise_late_aircraft_delay.py
@@ -15,7 +15,7 @@ First, run the Year_wise_carrier_delay.py using the below command
 
 spark-submit --master yarn Year_wise_carrier_delay.py
 
-This is the command in which you can run the python script directly in the Hadoop terminal. Here Year_wise_carrier_delay.py contains all the steps I mentioned above and it's a short way to run the query and find the query execution time as well.
+This is the command in which you can run the python script directly in the Hadoop terminal. Here Year_wise_carrier_delay.py contains all the steps I mentioned in running over the spark shell and it's a short way to run the query and find the query execution time as well.
 
 # Step 2:
 
