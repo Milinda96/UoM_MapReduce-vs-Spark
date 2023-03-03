@@ -1,0 +1,60 @@
+<!-- Raed data from CSV-->
+var df = spark.read.format("csv").load("s3://airline-delay/DelayedFlights-updated.csv")
+df.show()
+
+<!-- Partition the data by Year -->
+df.write.format("parquet").partitionBy("_c1").save("s3://airline-delay/DelayedFlights-updated-df.csv")
+df.show()
+
+<!-- View partition data -->
+val df2 = spark.read.format("parquet").load("s3://airline-delay/DelayedFlights-updated-df")
+df2.show()
+
+<!-- Create table called `delay_flights` -->
+df2.createOrReplaceTempView("delay_flights")
+
+<!-- Year wise carrier delay from 2003-2010 -->
+val startTime1 = System.nanoTime()
+val result_df1 = spark.sql("SELECT _c1 as Year, avg((_c25/_c15)*100) as Year_wise_carrier_delay from delay_flights GROUP BY _c1 ORDER BY _c1 DESC").show()
+val endTime1 = System.nanoTime()
+val executionTime1 = (endTime1 - startTime1) / 1000000000.0
+println("Execution time 1: %.2f seconds".format(executionTime1))
+
+Execution time 1: 12.60 seconds
+
+
+<!-- Year wise late aircraft delay from 2003-2010 -->
+val startTime2 = System.nanoTime()
+val result_df2 = spark.sql("SELECT _c1 as Year, avg((_c29/_c15)*100) as Year_wise_late_aircraft_delay from delay_flights GROUP BY _c1 ORDER BY _c1 DESC").show()
+val endTime2 = System.nanoTime()
+val executionTime2 = (endTime2 - startTime2) / 1000000000.0
+println("Execution time 2: %.2f seconds".format(executionTime2))
+
+Execution time 2: 0.84 seconds
+
+<!-- Year wise NAS delay from 2003-2010 -->
+val startTime3 = System.nanoTime()
+val result_df3 = spark.sql("SELECT _c1 as Year, avg((_c27/_c15)*100) as Year_wise_NAS_delay from delay_flights GROUP BY _c1 ORDER BY _c1 DESC").show()
+val endTime3 = System.nanoTime()
+val executionTime3 = (endTime3 - startTime3) / 1000000000.0
+println("Execution time 3: %.2f seconds".format(executionTime3))
+
+Execution time 3: 0.97 seconds
+
+<!-- Year wise security delay from 2003-2010 -->
+val startTime4 = System.nanoTime()
+val result_df4 = spark.sql("SELECT _c1 as Year, avg((_c28/_c15)*100) as Year_wise_security_delay from delay_flights GROUP BY _c1 ORDER BY _c1 DESC").show()
+val endTime4 = System.nanoTime()
+val executionTime4 = (endTime4 - startTime4) / 1000000000.0
+println("Execution time 4: %.2f seconds".format(executionTime4))
+
+Execution time 4: 0.96 seconds
+
+<!-- Year wise Weather delay from 2003-2010 -->
+val startTime5 = System.nanoTime()
+val result_df5 = spark.sql("SELECT _c1 as Year, avg((_c26/_c15)*100) as Year_wise_Weather_delay from delay_flights GROUP BY _c1 ORDER BY _c1 DESC").show()
+val endTime5 = System.nanoTime()
+val executionTime5 = (endTime5 - startTime5) / 1000000000.0
+println("Execution time 5: %.2f seconds".format(executionTime5))
+
+Execution time 5: 0.81 seconds

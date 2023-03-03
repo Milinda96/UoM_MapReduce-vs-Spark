@@ -40,3 +40,20 @@ LOAD DATA INPATH 's3://airline-delay/DelayedFlights-updated.csv' OVERWRITE INTO 
 
 -- Remove the table
 DROP TABLE IF EXISTS delay_flights;
+
+-- Year wise carrier delay from 2003-2010
+SELECT Year, avg((CarrierDelay/ArrDelay)*100) as Year_wise_carrier_delay from delay_flights GROUP BY Year ORDER BY Year DESC;
+
+-- Year wise NAS delay from 2003-2010
+SELECT Year, avg((NASDelay/ArrDelay)*100) as Year_wise_NAS_delay from delay_flights GROUP BY Year ORDER BY Year DESC;
+
+-- Year wise Weather delay from 2003-2010
+SELECT Year, avg((WeatherDelay/ArrDelay)*100) as Year_wise_Weather_delay from delay_flights GROUP BY Year ORDER BY Year DESC;
+
+-- Year wise late aircraft delay from 2003-2010
+SELECT Year, avg((LateAircraftDelay/ArrDelay)*100) as Year_wise_late_aircraft_delay from delay_flights GROUP BY Year ORDER BY Year DESC;
+
+-- Year wise security delay from 2003-2010
+SELECT Year, avg((SecurityDelay/ArrDelay)*100) as Year_wise_security_delay from delay_flights GROUP BY Year ORDER BY Year DESC;
+
+
