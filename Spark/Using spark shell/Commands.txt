@@ -1,4 +1,4 @@
-<!-- Raed data from CSV-->
+<!-- Read data from CSV-->
 var df = spark.read.format("csv").load("s3://airline-delay/DelayedFlights-updated.csv")
 df.show()
 
