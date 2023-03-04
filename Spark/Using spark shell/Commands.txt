@@ -3,7 +3,7 @@ var df = spark.read.format("csv").load("s3://airline-delay/DelayedFlights-update
 df.show()
 
 <!-- Partition the data by Year -->
-df.write.format("parquet").partitionBy("_c1").save("s3://airline-delay/DelayedFlights-updated-df.csv")
+df.write.format("parquet").partitionBy("_c1").save("s3://airline-delay/DelayedFlights-updated-df")
 df.show()
 
 <!-- View partition data -->
